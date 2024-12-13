@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import os
 import sys
+from time import sleep
 from skimage.metrics import structural_similarity as ssim
 
 # Default image paths
@@ -14,32 +15,44 @@ explicit_update_admin = len(sys.argv) > 1 and sys.argv[1] == "abc@123"
 def main():
     # Check if the admin photo exists or needs to be update_admind
     if not isinstance(cv2.imread(admin_image_path), np.ndarray) or explicit_update_admin:
-        print("Initiating admin image update_admin...")
+        print("Initiating admin image update...")
+        sleep(1)
         # Run udate function to update admin image
         update_admin()
+        print("Admin image updated successfully")
+        sleep(1)
         # If the admin image was explicitly updated, the program will end here
         if explicit_update_admin:
-            print("Admin image update_admind.")
             exit(0)
     # Program continues to capture an image to verify the user
-    print("Initiating image capture...\n Press 'c' to capture")
+    print("Initiating image capture...")
+    sleep(1)
+    print("Press 'c' to capture")
+    sleep(1)
     print(capture_image(input_image_path))
+    sleep(1)
     print("Initiating verification...")
+    sleep(1)
 
     # Load admin and user images
     admin_image = cv2.imread(admin_image_path, cv2.IMREAD_GRAYSCALE)
     input_image = cv2.imread(input_image_path, cv2.IMREAD_GRAYSCALE)
 
     # Detect faces in admin and user images and check if appropriate NumPy array was returned
+    print("Detecting faces...")
+    sleep(1)
     admin_face = detect_faces(admin_image)
     if not isinstance(admin_face, np.ndarray):
         sys.exit("No face found in database")
     input_face = detect_faces(input_image)
     if not isinstance(input_face, np.ndarray):
         sys.exit("No face found in captured image")
+    print("Face detected")
+    sleep(1)
 
     # Compare the faces using Structural Similarity Index (SSIM) and print the result
     print(match(admin_face, input_face))
+    sleep(0.5)
 
 
 def capture_image(captured_image_path):
@@ -94,14 +107,14 @@ def update_admin():
         except:
             pass
         print("Saving image...")
+        sleep(0.5)
         os.rename(buffer_image_location, admin_image_path)
         print("Image saved successfully.") # Replaces the admin image
+        sleep(1)
 
 
 
 def detect_faces(image):   
-
-    print("Detecting faces...") 
 
     # Load pre-trained face detector
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -113,7 +126,6 @@ def detect_faces(image):
 
         # Crop the faces from the images
         face = image[y1:y1+h1, x1:x1+w1]
-        print(f"Face detected")
         return face
     
     return None
@@ -122,6 +134,7 @@ def detect_faces(image):
 def match(admin_face, input_face):  
 
     print("Running verification tests...")
+    sleep(1)
 
     # Resize the faces to the same size for comparison
     admin_face_resized = cv2.resize(admin_face, (input_face.shape[1], input_face.shape[0]))
@@ -130,8 +143,10 @@ def match(admin_face, input_face):
     score, _ = ssim(admin_face_resized, input_face, full=True)    
 
     print(f"Similarity score: {score * 100:.2f}%")  
-    
+    sleep(0.5)
+
     # If similarity score is more than 0.4, print "Face match"
+    sleep(0.5)
     if score > 0.4:
         return "Face match!"
     else:
