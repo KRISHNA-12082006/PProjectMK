@@ -24,14 +24,14 @@ def test_capture_image():
     image_path = "test_image_capture.jpg"
     
     # Call the capture_image function and capture the result
-    assert capture_image(image_path) == "Image captured and saved"
+    assert capture_image(image_path, auto_test=True) == "Image captured and saved"
     
     # Assert that the file has been created
     assert os.path.exists(image_path)
     
     # Clean up: remove the test image after the test
-    if os.path.exists(image_path):
-        os.remove(image_path)
+    #if os.path.exists(image_path):
+     #   os.remove(image_path)
     
 
 

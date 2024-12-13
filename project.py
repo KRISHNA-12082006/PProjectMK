@@ -29,7 +29,7 @@ def main():
     sleep(1)
     print("Press 'c' to capture")
     sleep(1)
-    print(capture_image(input_image_path))
+    print(capture_image(input_image_path, auto_test=False))
     sleep(1)
     print("Initiating verification...")
     sleep(1)
@@ -55,7 +55,7 @@ def main():
     sleep(0.5)
 
 
-def capture_image(captured_image_path):
+def capture_image(captured_image_path, auto_test=False):
 
     # Message container
     msg = None
@@ -72,8 +72,9 @@ def capture_image(captured_image_path):
                 msg = "Error: Could not read frame."
                 break
             # Capture Image
-            cv2.imshow('Camera Feed - Press "c" to capture', frame)
-            if cv2.waitKey(1) & 0xFF == ord('c'):            
+            if not auto_test:
+                cv2.imshow('Camera Feed - Press "c" to capture', frame)
+            if (cv2.waitKey(1) & 0xFF == ord('c')) or auto_test:            
                 cv2.imwrite(captured_image_path, frame)
                 msg = "Image captured and saved"
                 break
@@ -90,7 +91,7 @@ def update_admin():
     # Default path to save the captured image to a temporary file for face detection
     buffer_image_location = "./admin/pht0.jpg"
 
-    capture_image(buffer_image_location)
+    capture_image(buffer_image_location, auto_test=False)
     image = cv2.imread(buffer_image_location, cv2.IMREAD_GRAYSCALE)
   
     # Load pre-trained face detector
