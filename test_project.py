@@ -30,8 +30,8 @@ def test_capture_image():
     assert os.path.exists(image_path)
     
     # Clean up: remove the test image after the test
-    #if os.path.exists(image_path):
-     #   os.remove(image_path)
+    if os.path.exists(image_path):
+       os.remove(image_path)
     
 
 
