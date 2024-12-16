@@ -131,6 +131,11 @@ The project began with Manjeet creating two scripts. The first script was respon
 
 During their discussions, Krishna suggested enhancing the structure of the project. Then a new created script that added a `main()` function to serve as the entry point of the project. We integrated the functionalities from the two previous scripts into a single file, `project.py`, and refactored the code into well-defined functions. This approach helped streamline the project and make the individual functionalities modular, improving the overall organization and flow of the project.
 
+OpenCV (cv2) is a powerful library used for various computer vision tasks in this project. It handles capturing images from the webcam, reading and writing image files, detecting faces using Haar Cascades, and cropping and resizing images for comparison. These features make it essential for the image processing and face verification functionalities.
+
+NumPy (numpy) plays a crucial role in managing image data as arrays. It ensures the integrity of this data and facilitates operations such as resizing and cropping, which are vital for preparing images for comparison.
+
+The structural_similarity function from scikit-image (skimage.metrics.structural_similarity) is utilized to calculate the similarity score between two images. This score helps determine if the captured face matches the stored admin face, enabling accurate verification.
 
 ## License
 
