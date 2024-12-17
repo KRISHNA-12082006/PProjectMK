@@ -13,6 +13,9 @@ explicit_update_admin = len(sys.argv) > 1 and sys.argv[1] == "abc@123"
 
 
 def main():
+
+    print(f"\nWelcome to Project FaceMatch\n")
+
     # Check if the admin photo exists or needs to be update_admind
     if not isinstance(cv2.imread(admin_image_path), np.ndarray) or explicit_update_admin:
         print("Initiating admin image update...")
